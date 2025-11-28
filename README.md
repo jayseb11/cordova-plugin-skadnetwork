@@ -5,7 +5,7 @@ Cordova plugin to update SKAdNetwork postback conversion values for iOS attribut
 ## Installation
 
 ```bash
-cordova plugin add /path/to/cordova-plugin-skadnetwork
+cordova plugin add cordova-plugin-skadnetwork
 ```
 
 ## Usage
@@ -14,12 +14,12 @@ cordova plugin add /path/to/cordova-plugin-skadnetwork
 
 ```javascript
 SKAdNetwork.lockConversionValue(
-    function(success) {
-        console.log('SKAdNetwork: ' + success);
-    },
-    function(error) {
-        console.error('SKAdNetwork Error: ' + error);
-    }
+  function (success) {
+    console.log("SKAdNetwork: " + success);
+  },
+  function (error) {
+    console.error("SKAdNetwork Error: " + error);
+  }
 );
 ```
 
@@ -27,13 +27,13 @@ SKAdNetwork.lockConversionValue(
 
 ```javascript
 SKAdNetwork.updateConversionValue(
-    63, // value between 0-63
-    function(success) {
-        console.log('SKAdNetwork: ' + success);
-    },
-    function(error) {
-        console.error('SKAdNetwork Error: ' + error);
-    }
+  63, // value between 0-63
+  function (success) {
+    console.log("SKAdNetwork: " + success);
+  },
+  function (error) {
+    console.error("SKAdNetwork Error: " + error);
+  }
 );
 ```
 
@@ -41,15 +41,15 @@ SKAdNetwork.updateConversionValue(
 
 ```javascript
 SKAdNetwork.updatePostbackConversionValue(
-    63,      // fine conversion value (0-63)
-    'high',  // coarse value: 'low', 'medium', or 'high'
-    true,    // lockWindow: lock the conversion window
-    function(success) {
-        console.log('SKAdNetwork: ' + success);
-    },
-    function(error) {
-        console.error('SKAdNetwork Error: ' + error);
-    }
+  63, // fine conversion value (0-63)
+  "high", // coarse value: 'low', 'medium', or 'high'
+  true, // lockWindow: lock the conversion window
+  function (success) {
+    console.log("SKAdNetwork: " + success);
+  },
+  function (error) {
+    console.error("SKAdNetwork Error: " + error);
+  }
 );
 ```
 
@@ -57,12 +57,12 @@ SKAdNetwork.updatePostbackConversionValue(
 
 ```javascript
 SKAdNetwork.registerAppForAttribution(
-    function(success) {
-        console.log('SKAdNetwork: ' + success);
-    },
-    function(error) {
-        console.error('SKAdNetwork Error: ' + error);
-    }
+  function (success) {
+    console.log("SKAdNetwork: " + success);
+  },
+  function (error) {
+    console.error("SKAdNetwork Error: " + error);
+  }
 );
 ```
 
@@ -75,6 +75,7 @@ SKAdNetwork.registerAppForAttribution(
 ## Conversion Values
 
 SKAdNetwork uses conversion values from 0-63 to indicate user engagement:
+
 - **63**: Highest value user (e.g., made a purchase)
 - **0**: Lowest value user
 
