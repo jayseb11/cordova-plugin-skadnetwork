@@ -10,8 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/jayseb11/cordova-plugin-skadnetwork.git"
   },
+  "bugs": {
+    "url": "https://github.com/jayseb11/cordova-plugin-skadnetwork/issues"
+  },
+  "homepage": "https://github.com/jayseb11/cordova-plugin-skadnetwork#readme",
   "keywords": [
     "cordova",
     "skadnetwork",
@@ -22,7 +26,7 @@
     "ecosystem:cordova",
     "cordova-ios"
   ],
-  "author": "365 Gratitude",
+  "author": "Justin Sebastian <support@365gratitudejournal.com>",
   "license": "MIT",
   "engines": {
     "cordovaDependencies": {
