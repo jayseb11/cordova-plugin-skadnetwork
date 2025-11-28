@@ -89,36 +89,53 @@ import StoreKit
     }
 
     /// Lock the conversion value to 63 (maximum value indicating high-value user)
+    /// On iOS 16.1+, also locks the window to trigger immediate postback
     /// - Parameter command: Cordova command
     @objc(lockConversionValue:)
     func lockConversionValue(command: CDVInvokedUrlCommand) {
         DispatchQueue.main.async {
-            if #available(iOS 15.4, *) {
-                SKAdNetwork.updatePostbackConversionValue(63) { error in
+            // iOS 16.1+: Lock the window to get postback faster
+            if #available(iOS 16.1, *) {
+                // coarse: .high + lockWindow: true = Send Postback Immediately
+                SKAdNetwork.updatePostbackConversionValue(63, coarseValue: .high, lockWindow: true) { error in
                     if let error = error {
-                        print("SKAdNetwork: Error locking SKAN value: \(error.localizedDescription)")
-                        let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: error.localizedDescription)
-                        self.commandDelegate.send(result, callbackId: command.callbackId)
+                        print("SKAdNetwork: Error locking window: \(error.localizedDescription)")
                     } else {
-                        print("SKAdNetwork: Successfully locked conversion value to 63")
-                        let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Conversion value locked to 63")
-                        self.commandDelegate.send(result, callbackId: command.callbackId)
+                        print("SKAdNetwork: Locked to 63 and closed window (iOS 16.1+)")
                     }
                 }
-            } else if #available(iOS 14.0, *) {
-                SKAdNetwork.updateConversionValue(63)
-                print("SKAdNetwork: Locked conversion value to 63 (iOS < 15.4)")
-                let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Conversion value locked to 63")
+                // Send success immediately to Cordova (don't wait for callback)
+                let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Locked to 63 (Window Closed)")
                 self.commandDelegate.send(result, callbackId: command.callbackId)
-            } else {
-                print("SKAdNetwork: Not available on this iOS version")
-                let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "SKAdNetwork not available on iOS < 14.0")
+            }
+            // iOS 15.4+: Standard update
+            else if #available(iOS 15.4, *) {
+                SKAdNetwork.updatePostbackConversionValue(63) { error in
+                    if let error = error {
+                        print("SKAdNetwork: Error updating: \(error.localizedDescription)")
+                    }
+                }
+                let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Locked to 63")
+                self.commandDelegate.send(result, callbackId: command.callbackId)
+            }
+            // iOS 14.0+: Fallback
+            else if #available(iOS 14.0, *) {
+                SKAdNetwork.updateConversionValue(63)
+                let result = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Locked to 63")
+                self.commandDelegate.send(result, callbackId: command.callbackId)
+            }
+            else {
+                let result = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "SKAdNetwork not available")
                 self.commandDelegate.send(result, callbackId: command.callbackId)
             }
         }
     }
 
     /// Register app for SKAdNetwork attribution
+    /// ⚠️ WARNING: Do NOT call this during purchase flow!
+    /// - On iOS 14, this can reset the conversion value timer or value to 0
+    /// - Only call ONCE at app startup (AppDelegate didFinishLaunching)
+    /// - On iOS 15.4+, updatePostbackConversionValue handles registration automatically (this is legacy)
     /// - Parameter command: Cordova command
     @objc(registerAppForAttribution:)
     func registerAppForAttribution(command: CDVInvokedUrlCommand) {
