@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-skadnetwork",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Cordova plugin to update SKAdNetwork postback conversion values for iOS attribution",
   "cordova": {
     "id": "cordova-plugin-skadnetwork",
