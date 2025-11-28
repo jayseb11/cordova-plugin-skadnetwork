@@ -1,0 +1,34 @@
+{
+  "name": "cordova-plugin-skadnetwork",
+  "version": "1.0.0",
+  "description": "Cordova plugin to update SKAdNetwork postback conversion values for iOS attribution",
+  "cordova": {
+    "id": "cordova-plugin-skadnetwork",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "cordova",
+    "skadnetwork",
+    "conversion",
+    "postback",
+    "attribution",
+    "ios",
+    "ecosystem:cordova",
+    "cordova-ios"
+  ],
+  "author": "365 Gratitude",
+  "license": "MIT",
+  "engines": {
+    "cordovaDependencies": {
+      "1.0.0": {
+        "cordova-ios": ">=6.0.0"
+      }
+    }
+  }
+}

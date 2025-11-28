@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-skadnetwork" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>SKAdNetwork Plugin</name>
+    <description>Cordova plugin to update SKAdNetwork postback conversion values</description>
+    <license>MIT</license>
+    <keywords>cordova,skadnetwork,conversion,postback,attribution</keywords>
+
+    <js-module name="SKAdNetwork" src="www/SKAdNetwork.js">
+        <clobbers target="SKAdNetwork" />
+    </js-module>
+
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="SKAdNetworkPlugin">
+                <param name="ios-package" value="SKAdNetworkPlugin" />
+            </feature>
+        </config-file>
+
+        <source-file src="src/ios/SKAdNetworkPlugin.swift" />
+
+        <!-- Facebook SKAdNetwork Identifiers - Required for Facebook to receive postback conversion data -->
+        <config-file target="*-Info.plist" parent="SKAdNetworkItems">
+            <array>
+                <!-- Facebook's SKAdNetwork IDs -->
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>v9wttpbfk9.skadnetwork</string>
+                </dict>
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>n38lu8286q.skadnetwork</string>
+                </dict>
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>cp8zw746q7.skadnetwork</string>
+                </dict>
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>3rd42ekr43.skadnetwork</string>
+                </dict>
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>3qcr597p9d.skadnetwork</string>
+                </dict>
+                <!-- TikTok SKAdNetwork IDs -->
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>22mmun2rn5.skadnetwork</string>
+                </dict>
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>238telecom.skadnetwork</string>
+                </dict>
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>5a6flpkh64.skadnetwork</string>
+                </dict>
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>e5fvkxwrpn.skadnetwork</string>
+                </dict>
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>f7s53z58qe.skadnetwork</string>
+                </dict>
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>gta9lk7p23.skadnetwork</string>
+                </dict>
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>k674qkevps.skadnetwork</string>
+                </dict>
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>n9x2a789qt.skadnetwork</string>
+                </dict>
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>p276rd5jrs.skadnetwork</string>
+                </dict>
+                <dict>
+                    <key>SKAdNetworkIdentifier</key>
+                    <string>wzmmz9fp6w.skadnetwork</string>
+                </dict>
+            </array>
+        </config-file>
+    </platform>
+</plugin>
